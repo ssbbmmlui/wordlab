@@ -1,0 +1,19 @@
+{
+  "name": "WordLab 單詞工坊",
+  "short_name": "WordLab",
+  "description": "用間隔重複法學習英文單詞，自動記錄進度並出題測驗。",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#2f5d50",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

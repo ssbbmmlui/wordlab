@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f3ec">
+<meta name="description" content="WordLab 單詞工坊 — 用間隔重複法學習英文單詞，自動記錄進度並出題測驗。">
+<title>WordLab 單詞工坊 · 英文單詞學習</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bg-orbs" aria-hidden="true">
+  <span class="orb orb-a"></span>
+  <span class="orb orb-b"></span>
+</div>
+
+<div class="app">
+
+  <!-- ══════════ Header ══════════ -->
+  <header class="topbar">
+    <a class="brand" href="#" id="brandHome">
+      <span class="brand-mark" aria-hidden="true">W</span>
+      <span class="brand-text">
+        <strong>WordLab</strong>
+        <small>單詞工坊</small>
+      </span>
+    </a>
+
+    <div class="topbar-right">
+      <div class="streak-pill" id="streakPill" title="連續學習天數">
+        <span class="streak-flame" aria-hidden="true">🔥</span>
+        <span id="streakCount">0</span>
+        <span class="streak-unit">天</span>
+      </div>
+      <button class="icon-btn" id="settingsBtn" type="button" aria-label="設定" title="設定">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="3.2"></circle>
+          <path d="M19.4 15a1.6 1.6 0 0 0 .32 1.77l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.6 1.6 0 0 0-1.77-.32 1.6 1.6 0 0 0-1 1.46V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.46 1.6 1.6 0 0 0-1.77.32l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.6 1.6 0 0 0 4.6 15a1.6 1.6 0 0 0-1.46-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.46-1 1.6 1.6 0 0 0-.32-1.77l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.6 1.6 0 0 0 9 4.6a1.6 1.6 0 0 0 1-1.46V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.46 1.6 1.6 0 0 0 1.77-.32l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.6 1.6 0 0 0-.32 1.77V9a1.6 1.6 0 0 0 1.46 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.46 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════ Nav ══════════ -->
+  <nav class="tabs" aria-label="主要功能">
+    <a class="tab" href="#/learn" data-tab="learn">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H19v16H5.5A1.5 1.5 0 0 1 4 18.5z"></path><path d="M8 4v16"></path><path d="M12 8h4M12 12h4"></path></svg>
+      <span>學習</span>
+    </a>
+    <a class="tab" href="#/quiz" data-tab="quiz">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9a3 3 0 1 1 4.6 2.5c-.9.6-1.6 1.2-1.6 2.5"></path><circle cx="12" cy="17.5" r=".9" fill="currentColor" stroke="none"></circle><circle cx="12" cy="12" r="9"></circle></svg>
+      <span>測驗</span>
+    </a>
+    <a class="tab" href="#/stats" data-tab="stats">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>
+      <span>進度</span>
+    </a>
+    <a class="tab" href="#/library" data-tab="library">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6v16H4zM14 4h6v16h-6zM10 8h4M10 12h4M10 16h4"></path></svg>
+      <span>單詞庫</span>
+    </a>
+  </nav>
+
+  <!-- ══════════ Views ══════════ -->
+  <main id="view" class="view" tabindex="-1"><!-- 由 app.js 渲染 --></main>
+
+  <footer class="footer">
+    <p>資料只儲存在你的瀏覽器（localStorage），不會上傳到任何伺服器。</p>
+  </footer>
+</div>
+
+<!-- ══════════ Toast ══════════ -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ══════════ Settings dialog ══════════ -->
+<div class="overlay" id="settingsOverlay" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="sheet-head">
+      <h2 id="settingsTitle">設定</h2>
+      <button class="icon-btn" id="settingsClose" type="button" aria-label="關閉">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+
+    <div class="sheet-body" id="settingsBody">
+      <div class="field">
+        <label for="setName">你的名字</label>
+        <input id="setName" type="text" maxlength="16" placeholder="學習者" autocomplete="nickname">
+      </div>
+
+      <div class="field">
+        <label>每日目標（複習 + 新詞）</label>
+        <div class="segmented" id="setGoal" role="group" aria-label="每日目標">
+          <button type="button" data-value="10">10 個</button>
+          <button type="button" data-value="20">20 個</button>
+          <button type="button" data-value="30">30 個</button>
+          <button type="button" data-value="50">50 個</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>預設測驗模式</label>
+        <div class="segmented" id="setQuizMode" role="group" aria-label="預設測驗模式">
+          <button type="button" data-value="mixed">混合</button>
+          <button type="button" data-value="mean">看詞選義</button>
+          <button type="button" data-value="def">看義選詞</button>
+          <button type="button" data-value="spell">拼寫</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>發音</label>
+        <div class="segmented" id="setAccent" role="group" aria-label="發音口音">
+          <button type="button" data-value="en-US">美式</button>
+          <button type="button" data-value="en-GB">英式</button>
+        </div>
+        <label class="switch-row">
+          <span>顯示單詞時自動發音</span>
+          <input type="checkbox" id="setAutoSpeak" class="switch">
+        </label>
+      </div>
+
+      <div class="field">
+        <label>資料</label>
+        <div class="btn-row">
+          <button type="button" class="btn btn-ghost" id="exportBtn">匯出進度 (JSON)</button>
+          <button type="button" class="btn btn-ghost" id="importBtn">匯入進度</button>
+          <input type="file" id="importFile" accept="application/json,.json" hidden>
+        </div>
+        <button type="button" class="btn btn-danger-ghost" id="resetBtn">重設所有學習進度</button>
+        <p class="hint">匯出後可備份到雲端；換裝置或瀏覽器時匯入即可繼續。</p>
+      </div>
+
+      <dl class="meta-info">
+        <div><dt>單詞總數</dt><dd id="metaWords">—</dd></div>
+        <div><dt>程式版本</dt><dd id="metaVersion">—</dd></div>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<script src="data/words.js"></script>
+<script src="data/words-extra.js"></script>
+<script src="data/words-extra2.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
