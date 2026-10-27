@@ -1,0 +1,19 @@
+{
+  "name": "wordlab",
+  "version": "1.1.0",
+  "private": true,
+  "description": "WordLab 單詞工坊 — 用間隔重複法學習英文單詞的離線網頁 App",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/smoke-test.mjs",
+    "start": "node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
